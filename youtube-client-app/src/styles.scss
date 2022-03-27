@@ -25,6 +25,7 @@ body {
 .button {
   border: none;
   outline: none;
+  background: none;
 }
 
 .icon {
@@ -41,4 +42,9 @@ body {
     height: 24px;
     background: url("assets/images/svg/user.svg") 0 center/cover no-repeat;
   }
+}
+
+.input {
+  border: none;
+  outline: none;
 }

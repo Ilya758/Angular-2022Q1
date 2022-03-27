@@ -1,0 +1,73 @@
+@import "../../../styles/mixins";
+@import "../../../styles/variables";
+
+.header {
+  &__content {
+    @include flex(row, space-between);
+    background-color: $color-light-gray;
+  }
+
+  &__search {
+    &-container {
+      @include flex(row, center);
+      flex: 1;
+    }
+
+    &-input {
+      height: 22px;
+      width: 100%;
+      max-width: 387px;
+      border: none;
+      padding-left: 5px;
+      background-color: $bcg-light-gray;
+      color: $color-gray;
+    }
+
+    &-button {
+      padding: 5px 22px 5px 18px;
+      border-radius: 0px 4px 4px 0px;
+      background-color: $bcg-blue;
+      color: $color-white;
+      box-shadow: 3px 0px 7px 1px $bcg-blue;
+      margin-right: 10px;
+    }
+  }
+
+  &__form {
+    margin: 0 10px;
+    @include flex();
+    flex: 1;
+  }
+
+  &__text {
+    color: $color-gray;
+  }
+
+  &__info {
+    &-text {
+      margin: 0;
+      color: $color-light-dark;
+    }
+
+    &-container {
+      @include flex(row, start);
+      column-gap: 8px;
+      margin-right: 8%;
+    }
+  }
+}
+
+.text {
+  font: 400 12px "Roboto", sans-serif;
+  line-height: 14px;
+}
+
+.search {
+  &__container {
+    @include flex(row);
+    margin: 0 10px;
+    max-width: 570px;
+    width: 100%;
+    margin-left: 20%;
+  }
+}

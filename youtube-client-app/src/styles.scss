@@ -1,4 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+// @import "./app/header/header/header.component";
+@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "./styles/mixins";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.content {
+  @include flex();
+  padding: 0 20px;
+}
+
+.button {
+  border: none;
+  outline: none;
+}
+
+.icon {
+  display: inline-block;
+
+  &-settings {
+    width: 39px;
+    height: 33px;
+    background: url("assets/images/svg/settings.svg") 0 center/cover no-repeat;
+  }
+
+  &-user {
+    width: 24px;
+    height: 24px;
+    background: url("assets/images/svg/user.svg") 0 center/cover no-repeat;
+  }
+}

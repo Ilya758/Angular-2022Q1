@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IFilterSettings } from 'src/app/filtering-block/filtering-block.model';
 import { IItem } from '../search-item.model';
-import { IResponse } from '../search-response.model';
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
@@ -8,6 +8,8 @@ import { IResponse } from '../search-response.model';
 })
 export class SearchResultsComponent implements OnInit {
   data!: IItem[];
+
+  @Input() filterSettings!: IFilterSettings;
 
   constructor() {}
 

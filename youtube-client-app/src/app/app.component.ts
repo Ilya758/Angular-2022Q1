@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   fakeFetched = false;
+
   filteringBlockIsVisible = false;
+
+  filterSettings = {
+    dateByAsc: false,
+    viewsByAsc: false,
+    keyword: '',
+  };
 }

@@ -3,6 +3,12 @@
   [(fetched)]="fakeFetched"
 ></app-header>
 <main>
-  <app-filtering-block *ngIf="filteringBlockIsVisible"></app-filtering-block>
-  <app-search-results *ngIf="fakeFetched"></app-search-results>
+  <app-filtering-block
+    [filterSettings]="filterSettings"
+    *ngIf="filteringBlockIsVisible"
+  ></app-filtering-block>
+  <app-search-results
+    [filterSettings]="filterSettings"
+    *ngIf="fakeFetched"
+  ></app-search-results>
 </main>

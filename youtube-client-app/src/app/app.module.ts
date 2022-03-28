@@ -16,6 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { FilteringBlockComponent } from './filtering-block/filtering-block.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ColorDirective } from './directives/color.directive';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ColorDirective } from './directives/color.directive';
     SearchItemComponent,
     FilteringBlockComponent,
     ColorDirective,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

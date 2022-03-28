@@ -9,7 +9,12 @@
       <mat-grid-tile
         [rowspan]="1.25"
         class="search-results__item"
-        *ngFor="let card of data"
+        *ngFor="
+          let card of data
+            | filter: 'keyword':filterSettings.keyword
+            | filter: 'date':filterSettings.dateByAsc
+            | filter: 'views':filterSettings.viewsByAsc
+        "
       >
         <app-search-item
           class="search-results__card"

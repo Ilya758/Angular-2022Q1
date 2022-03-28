@@ -38,7 +38,11 @@
     </h2>
   </div>
 
-  <div class="metrics__underline"></div>
+  <div
+    appColor
+    [date]="item.snippet.publishedAt"
+    class="metrics__underline"
+  ></div>
 
   <button class="text metrics__button" mat-button>more...</button>
 </mat-card>

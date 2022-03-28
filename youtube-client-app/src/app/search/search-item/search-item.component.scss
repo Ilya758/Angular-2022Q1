@@ -64,5 +64,25 @@
     height: 5px;
     bottom: 0;
     background-color: $bcg-blue;
+
+    &.underline {
+      &_color {
+        &_red {
+          background-color: $bcg-red;
+        }
+
+        &_yellow {
+          background-color: $bcg-yellow;
+        }
+
+        &_green {
+          background-color: $bcg-green;
+        }
+
+        &_blue {
+          background-color: $bcg-blue;
+        }
+      }
+    }
   }
 }

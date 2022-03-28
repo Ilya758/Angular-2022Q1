@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FilteringBlockComponent } from './filtering-block/filtering-block.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ColorDirective } from './directives/color.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     SearchResultsComponent,
     SearchItemComponent,
     FilteringBlockComponent,
+    ColorDirective,
   ],
   imports: [
     BrowserModule,

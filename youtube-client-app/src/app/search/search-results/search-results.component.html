@@ -1,1 +1,21 @@
-<p>search-results works!</p>
+<div class="container">
+  <div class="search-results__content">
+    <mat-grid-list
+      rowHeight="0.75:1"
+      cols="4"
+      class="search-results__grid-list"
+      gutterSize="29px 28px"
+    >
+      <mat-grid-tile
+        [rowspan]="1.25"
+        class="search-results__item"
+        *ngFor="let card of data"
+      >
+        <app-search-item
+          class="search-results__card"
+          [item]="card"
+        ></app-search-item>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

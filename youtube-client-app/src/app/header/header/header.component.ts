@@ -7,8 +7,10 @@ import { Form, NgForm } from '@angular/forms';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @Input() settingsVisible = false;
   @Input() fetched = false;
   @Output() fetchedChange = new EventEmitter();
+  @Output() settingsVisibleChange = new EventEmitter();
 
   user = {
     query: '',
@@ -20,5 +22,10 @@ export class HeaderComponent implements OnInit {
   submitForm(e: NgForm) {
     this.fetched = true;
     this.fetchedChange.emit(this.fetched);
+  }
+
+  changeVisibility() {
+    this.settingsVisible = !this.settingsVisible;
+    this.settingsVisibleChange.emit(this.settingsVisible);
   }
 }

@@ -1,5 +1,8 @@
-<app-header [(fetched)]="fakeFetched"></app-header>
+<app-header
+  [(settingsVisible)]="filteringBlockIsVisible"
+  [(fetched)]="fakeFetched"
+></app-header>
 <main>
-  <app-filtering-block></app-filtering-block>
+  <app-filtering-block *ngIf="filteringBlockIsVisible"></app-filtering-block>
   <app-search-results *ngIf="fakeFetched"></app-search-results>
 </main>

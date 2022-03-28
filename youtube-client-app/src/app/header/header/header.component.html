@@ -20,10 +20,14 @@
               [(ngModel)]="user.query"
               [value]="user.query"
             />
-            <button mat-button class="header__search-button text">
+            <button type="submit" mat-button class="header__search-button text">
               Search
             </button>
-            <button class="button icon icon-settings"></button>
+            <button
+              type="button"
+              (click)="changeVisibility()"
+              class="button icon icon-settings"
+            ></button>
           </form>
         </div>
       </div>

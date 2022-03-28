@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 // @import "./app/header/header/header.component";
 @import "~@angular/material/prebuilt-themes/purple-green.css";
+@import "./styles/variables";
 @import "./styles/mixins";
 
 html,
@@ -47,4 +48,10 @@ body {
 .input {
   border: none;
   outline: none;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }

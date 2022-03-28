@@ -2,9 +2,10 @@
 @import "../../../styles/variables";
 
 .header {
+  background-color: $bcg-medium-light-gray;
+
   &__content {
     @include flex(row, space-between);
-    background-color: $color-light-gray;
   }
 
   &__search {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, NgForm } from '@angular/forms';
+import { IFilterSettings } from 'src/app/filtering-block/filtering-block.model';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
   user = {
     query: '',
   };
+
   constructor() {}
 
   ngOnInit(): void {}

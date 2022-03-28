@@ -1,1 +1,44 @@
-<p>search-item works!</p>
+<mat-card class="search-item">
+  <div class="search-item__info">
+    <img
+      class="search-item__img"
+      src="{{ item.snippet.thumbnails.maxres.url }}"
+      alt="{{ item.snippet.title }}"
+    />
+
+    <ul class="list search-item__metrics">
+      <li class="metrics__container">
+        <span class="icon icon-viewed"></span>
+        <span class="text metrics__text">
+          {{ item.statistics.viewCount }}
+        </span>
+      </li>
+      <li class="metrics__container">
+        <span class="icon icon-liked"></span>
+        <span class="text metrics__text">
+          {{ item.statistics.likeCount }}
+        </span>
+      </li>
+      <li class="metrics__container">
+        <span class="icon icon-disliked"></span>
+        <span class="text metrics__text">
+          {{ item.statistics.dislikeCount }}
+        </span>
+      </li>
+      <li class="metrics__container">
+        <span class="icon icon-commented"></span>
+        <span class="text metrics__text">
+          {{ item.statistics.commentCount }}
+        </span>
+      </li>
+    </ul>
+
+    <h2 class="heading text metrics__heading">
+      {{ item.snippet.title.slice(0, 20) + "..." }}
+    </h2>
+  </div>
+
+  <div class="metrics__underline"></div>
+
+  <button class="text metrics__button" mat-button>more...</button>
+</mat-card>

@@ -43,6 +43,25 @@ body {
     height: 24px;
     background: url("assets/images/svg/user.svg") 0 center/cover no-repeat;
   }
+
+  &_color {
+    &_black {
+      color: $color-black;
+    }
+  }
+
+  @each $icon in viewed, liked, disliked, commented {
+    &-#{$icon} {
+      margin-right: 3px;
+      width: 15px;
+      height: 13px;
+      background: url("assets/images/svg/#{$icon}.svg") no-repeat;
+    }
+  }
+
+  &-viewed {
+    width: 24px;
+  }
 }
 
 .input {

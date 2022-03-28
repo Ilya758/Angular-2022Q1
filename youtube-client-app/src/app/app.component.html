@@ -1,5 +1,5 @@
-<app-header></app-header>
+<app-header [(fetched)]="fakeFetched"></app-header>
 <main>
   <app-filtering-block></app-filtering-block>
-  <app-search-results></app-search-results>
+  <app-search-results *ngIf="fakeFetched"></app-search-results>
 </main>

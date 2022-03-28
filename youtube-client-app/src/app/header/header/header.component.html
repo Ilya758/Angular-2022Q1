@@ -8,11 +8,17 @@
             src="/assets/images/svg/logo.svg"
             alt="logo"
           />
-          <form class="header__form">
+          <form
+            #form="ngForm"
+            class="header__form"
+            (ngSubmit)="submitForm(form)"
+          >
             <input
               class="header__search-input text"
               placeholder="What are you want to find out?"
-              value=""
+              name="query"
+              [(ngModel)]="user.query"
+              [value]="user.query"
             />
             <button mat-button class="header__search-button text">
               Search

@@ -33,9 +33,17 @@ body {
   display: inline-block;
 
   &-settings {
-    width: 39px;
-    height: 33px;
-    background: url("assets/images/svg/settings.svg") 0 center/cover no-repeat;
+    padding: 0;
+    width: 40px;
+    height: 35px;
+    background: url("assets/images/svg/settings.svg") 0 center/contain no-repeat;
+    transition: 0.35s;
+    opacity: 0.8;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
   }
 
   &-user {

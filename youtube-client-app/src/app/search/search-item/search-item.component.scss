@@ -41,8 +41,7 @@
   }
 
   &__heading {
-    margin-top: 21px;
-    margin-right: 4%;
+    margin: 21px 4% 0 0;
     width: 100%;
     color: $color-light-dark;
     font: 700 20px "Roboto", sans-serif;
@@ -51,7 +50,7 @@
   }
 
   &__button {
-    margin: 5% 0 15px;
+    margin: 0 0 15px;
     padding: 0 40px;
     font-size: 12px;
     background-color: $bcg-blue;

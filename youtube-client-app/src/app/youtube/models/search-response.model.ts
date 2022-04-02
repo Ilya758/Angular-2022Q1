@@ -1,4 +1,4 @@
-import { TResponseIntersectTypes } from 'src/model/common.model';
+import { TResponseIntersectTypes } from 'src/app/shared/models/common.model';
 import { IItem } from './search-item.model';
 
 export interface IResponse extends TResponseIntersectTypes {

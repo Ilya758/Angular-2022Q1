@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 
-import { TResponseIntersectTypes } from 'src/model/common.model';
+import { TResponseIntersectTypes } from 'src/app/shared/models/common.model';
 
 export interface IItem extends TResponseIntersectTypes {
   id: string;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IFilterSettings } from 'src/app/filtering-block/filtering-block.model';
-import { IItem } from '../search-item.model';
+import { IFilterSettings } from 'src/app/core/components/filtering-block/filtering-block.model';
+import { IItem } from '../../../models/search-item.model';
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',

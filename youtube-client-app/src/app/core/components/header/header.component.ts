@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, NgForm } from '@angular/forms';
-import { IFilterSettings } from 'src/app/filtering-block/filtering-block.model';
+import { IFilterSettings } from 'src/app/core/components/filtering-block/filtering-block.model';
 
 @Component({
   selector: 'app-header',

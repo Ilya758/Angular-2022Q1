@@ -9,14 +9,13 @@ import { SearchItemComponent } from './search/search-item/search-item.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { FilteringBlockComponent } from './filtering-block/filtering-block.component';
-import { MatIconModule } from '@angular/material/icon';
 import { ColorDirective } from './directives/color.directive';
 import { FilterPipe } from './pipes/filter.pipe';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { YoutubeModule } from './youtube/youtube.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -32,12 +31,11 @@ import { FilterPipe } from './pipes/filter.pipe';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatGridListModule,
-    MatCardModule,
-    MatIconModule,
     FormsModule,
+    CoreModule,
+    SharedModule,
+    YoutubeModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="content login-page__content">
+    <form
+      [formGroup]="loginService.user"
+      (ngSubmit)="loginService.login(loginService.user)"
+      class="login-page__form"
+    >
+      <h1 class="login-page__heading">Login</h1>
+
+      <label>
+        <h2 class="login-page__label">login</h2>
+        <input
+          formControlName="name"
+          name="name"
+          class="input login-page__input"
+          placeholder="Type your name"
+          autocomplete="off"
+          type="text"
+        />
+      </label>
+
+      <label>
+        <h2 class="login-page__label">password</h2>
+        <input
+          formControlName="password"
+          name="password"
+          class="input login-page__input"
+          placeholder="Type your password"
+          type="password"
+        />
+      </label>
+
+      <div class="login-page__button-container">
+        <button
+          [disabled]="
+            !loginService.name?.value || !loginService.password?.value
+          "
+          class="button login-page__button"
+          mat-button
+          type="submit"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

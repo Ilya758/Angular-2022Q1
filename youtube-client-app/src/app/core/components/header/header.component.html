@@ -34,14 +34,18 @@
       </div>
 
       <div class="header__info-container">
-        <h2 class="text header__info-text">
-          {{
-            loginService.loggedUserInfo
-              ? (loginService.loggedUserInfo!.name | greeting)
-              : "Your name"
-          }}
+        <h2 *ngIf="loginService.loggedUserInfo" class="text header__info-text">
+          {{ loginService.loggedUserInfo!.name | greeting }}
         </h2>
         <span class="icon icon-user"></span>
+        <button
+          *ngIf="loginService.isLoggedIn"
+          mat-button
+          (click)="loginService.logout()"
+          class="button header__search-button text"
+        >
+          Logout
+        </button>
       </div>
     </div>
   </div>

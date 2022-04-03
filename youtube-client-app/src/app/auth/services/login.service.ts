@@ -58,11 +58,14 @@ export class LoginService {
 
     this.loggedUserInfo = user;
 
-    console.log(this.loggedUserInfo);
-
     this.commitLoginInfo('user', user);
     this.router.navigate([this.redirectUrl]);
   };
 
-  logout = () => {};
+  logout = (): void => {
+    window.localStorage.clear();
+    this.isLoggedIn = false;
+    this.loggedUserInfo = null;
+    this.router.navigate(['/login']);
+  };
 }

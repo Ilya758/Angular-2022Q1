@@ -2,11 +2,7 @@
   [(settingsVisible)]="filteringBlockIsVisible"
   [(fetched)]="fakeFetched"
 ></app-header>
-<main>
-  <app-filtering-block
-    [filterSettings]="filterSettings"
-    *ngIf="filteringBlockIsVisible"
-  ></app-filtering-block>
+  <main class="main" appFlex>
   <app-search-results
     [filterSettings]="filterSettings"
     *ngIf="fakeFetched"

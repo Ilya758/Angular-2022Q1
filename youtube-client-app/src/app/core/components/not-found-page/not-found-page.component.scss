@@ -1,0 +1,11 @@
+@import "../../../../styles/variables";
+
+.not-found-page {
+  &__text {
+    margin-left: 27px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: $color-second-gray;
+  }
+}

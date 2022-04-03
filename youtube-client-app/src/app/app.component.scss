@@ -1,0 +1,23 @@
+@import "../styles/mixins";
+
+#wrapper {
+  @include flex(column);
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+
+  &_align {
+    &_center {
+      @include flex(column);
+    }
+  }
+}
+
+.header {
+  &-component {
+    width: 100%;
+  }
+}

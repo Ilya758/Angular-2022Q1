@@ -7,9 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexDirective } from './directives/flex.directive';
+import { GreetingPipe } from './pipes/greeting.pipe';
 
 @NgModule({
-  declarations: [FlexDirective],
+  declarations: [FlexDirective, GreetingPipe],
   imports: [CommonModule],
   exports: [
     BrowserAnimationsModule,
@@ -19,6 +20,7 @@ import { FlexDirective } from './directives/flex.directive';
     MatCardModule,
     MatIconModule,
     FlexDirective,
+    GreetingPipe,
   ],
 })
 export class SharedModule {}

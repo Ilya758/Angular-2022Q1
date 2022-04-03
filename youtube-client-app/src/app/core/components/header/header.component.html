@@ -34,7 +34,13 @@
       </div>
 
       <div class="header__info-container">
-        <h2 class="text header__info-text">Your name</h2>
+        <h2 class="text header__info-text">
+          {{
+            loginService.loggedUserInfo
+              ? (loginService.loggedUserInfo!.name | greeting)
+              : "Your name"
+          }}
+        </h2>
         <span class="icon icon-user"></span>
       </div>
     </div>

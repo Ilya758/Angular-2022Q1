@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Form, NgForm } from '@angular/forms';
+import { LoginService } from 'src/app/auth/services/login.service';
 import { IFilterSettings } from 'src/app/core/components/filtering-block/filtering-block.model';
 
 @Component({
@@ -17,7 +18,11 @@ export class HeaderComponent implements OnInit {
     query: '',
   };
 
-  constructor() {}
+  loginService!: LoginService;
+
+  constructor(loginService: LoginService) {
+    this.loginService = loginService;
+  }
 
   ngOnInit(): void {}
 

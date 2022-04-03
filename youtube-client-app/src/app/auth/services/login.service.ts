@@ -22,7 +22,7 @@ export class LoginService {
 
   redirectUrl: string = '';
 
-  namePattern = /^[A-z]{3,}$/i;
+  namePattern = /^[A-z\s]{3,}$/i;
 
   passwordPattern = /^[a-z0-9]{4,}$/i;
 

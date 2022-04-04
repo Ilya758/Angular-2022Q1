@@ -5,14 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  fakeFetched = false;
-
-  filteringBlockIsVisible = false;
-
-  filterSettings = {
-    dateByAsc: false,
-    viewsByAsc: false,
-    keyword: '',
-  };
-}
+export class AppComponent {}

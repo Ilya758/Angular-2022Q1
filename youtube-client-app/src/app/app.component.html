@@ -1,10 +1,7 @@
-<app-header
-  [(settingsVisible)]="filteringBlockIsVisible"
-  [(fetched)]="fakeFetched"
-></app-header>
+<div id="wrapper">
+  <app-header class="header-component"></app-header>
+  <app-filtering-block></app-filtering-block>
   <main class="main" appFlex>
-  <app-search-results
-    [filterSettings]="filterSettings"
-    *ngIf="fakeFetched"
-  ></app-search-results>
-</main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

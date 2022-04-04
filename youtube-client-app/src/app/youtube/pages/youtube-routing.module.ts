@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundPageComponent } from 'src/app/core/components/not-found-page/not-found-page.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { SearchResultsComponent } from '../components/search/search-results/search-results.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: NotFoundPageComponent,
+    component: SearchResultsComponent,
     canActivate: [AuthGuard],
   },
 ];

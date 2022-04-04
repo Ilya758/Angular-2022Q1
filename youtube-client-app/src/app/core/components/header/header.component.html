@@ -9,24 +9,28 @@
             alt="logo"
           />
           <form
-            #form="ngForm"
+            [formGroup]="youtubeService.userQuery"
             class="header__form"
-            (ngSubmit)="submitForm(form)"
+            (ngSubmit)="submitForm(youtubeService.userQuery)"
           >
             <input
               autocomplete="off"
               class="header__search-input text"
               placeholder="What are you want to find out?"
               name="query"
-              [ngModel]="user.query"
-              [value]="user.query"
+              formControlName="request"
             />
-            <button type="submit" mat-button class="header__search-button text">
+            <button
+              [disabled]="!loginService.isLoggedIn"
+              type="submit"
+              mat-button
+              class="header__search-button text"
+            >
               Search
             </button>
             <button
               type="button"
-              (click)="changeVisibility()"
+              (click)="youtubeService.changeFilteringBlockVisibility()"
               class="button icon icon-settings"
             ></button>
           </form>

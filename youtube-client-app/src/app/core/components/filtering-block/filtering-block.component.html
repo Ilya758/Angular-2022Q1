@@ -1,32 +1,32 @@
-<section class="filtering-block">
+<section class="filtering-block" *ngIf="youtubeService.filteringBlockIsVisible">
   <div class="container">
     <div class="content filtering-block__content">
       <span class="text filtering-block__text">Sorting by:</span>
       <button
-        (click)="changeFilter('date')"
+        (click)="youtubeService.changeFilter('date')"
         class="button text filtering-block__button"
       >
         date
       </button>
       <button
-        (click)="changeFilter('views')"
+        (click)="youtubeService.changeFilter('views')"
         class="button text filtering-block__button"
       >
         count of views
       </button>
       <button
-        (click)="changeFilter('keyword', input.value)"
+        (click)="youtubeService.changeFilter('keyword', input.value)"
         class="button text filtering-block__button"
       >
         by word or sentence
       </button>
       <input
         #input
-        [ngModel]="filterSettings.keyword"
+        [ngModel]="youtubeService.filterSettings.keyword"
         name="keyword"
         type="text"
-        [value]="filterSettings.keyword"
-        (keydown.enter)="changeFilter('keyword', input.value)"
+        [value]="youtubeService.filterSettings.keyword"
+        (keydown.enter)="youtubeService.changeFilter('keyword', input.value)"
         class="input text filtering-block__input"
       />
     </div>

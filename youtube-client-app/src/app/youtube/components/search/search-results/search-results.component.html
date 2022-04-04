@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="youtubeService.dataIsFetched">
   <div class="search-results__content">
     <mat-grid-list
       rowHeight="0.75:1"
@@ -11,9 +11,9 @@
         class="search-results__item"
         *ngFor="
           let card of data
-            | filter: 'keyword':filterSettings.keyword
-            | filter: 'date':filterSettings.dateByAsc
-            | filter: 'views':filterSettings.viewsByAsc
+            | filter: 'keyword':youtubeService.filterSettings.keyword
+            | filter: 'date':youtubeService.filterSettings.dateByAsc
+            | filter: 'views':youtubeService.filterSettings.viewsByAsc
         "
       >
         <app-search-item

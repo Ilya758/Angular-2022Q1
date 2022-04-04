@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Form, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { LoginService } from 'src/app/auth/services/login.service';
-import { IFilterSettings } from 'src/app/core/components/filtering-block/filtering-block.model';
+import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 @Component({
   selector: 'app-header',
@@ -9,30 +9,18 @@ import { IFilterSettings } from 'src/app/core/components/filtering-block/filteri
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input() settingsVisible = false;
-  @Input() fetched = false;
-  @Output() fetchedChange = new EventEmitter();
-  @Output() settingsVisibleChange = new EventEmitter();
+  youtubeService: YoutubeService;
 
-  user = {
-    query: '',
-  };
+  loginService: LoginService;
 
-  loginService!: LoginService;
-
-  constructor(loginService: LoginService) {
+  constructor(loginService: LoginService, youtubeService: YoutubeService) {
     this.loginService = loginService;
+    this.youtubeService = youtubeService;
   }
 
   ngOnInit(): void {}
 
-  submitForm(e: NgForm) {
-    this.fetched = true;
-    this.fetchedChange.emit(this.fetched);
-  }
-
-  changeVisibility() {
-    this.settingsVisible = !this.settingsVisible;
-    this.settingsVisibleChange.emit(this.settingsVisible);
+  submitForm(e: FormGroup) {
+    this.youtubeService.fetchData();
   }
 }

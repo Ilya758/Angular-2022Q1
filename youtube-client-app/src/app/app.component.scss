@@ -1,7 +1,7 @@
 @import "../styles/mixins";
 
 #wrapper {
-  @include flex(column);
+  @include flex(column, center, stretch);
   min-height: 100vh;
 }
 
@@ -13,11 +13,5 @@
     &_center {
       @include flex(column);
     }
-  }
-}
-
-.header {
-  &-component {
-    width: 100%;
   }
 }

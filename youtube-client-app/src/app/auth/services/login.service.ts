@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoggedUser } from '../models/user.model';
+import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,14 @@ export class LoginService {
 
   user!: FormGroup;
 
-  constructor(fb: FormBuilder, private router: Router) {
+  youtubeService: YoutubeService;
+
+  constructor(
+    fb: FormBuilder,
+    private router: Router,
+    youtubeService: YoutubeService
+  ) {
+    this.youtubeService = youtubeService;
     this.user = fb.group({
       name: ['', [Validators.pattern(this.namePattern)]],
       password: ['', Validators.pattern(this.passwordPattern)],
@@ -63,6 +71,7 @@ export class LoginService {
   };
 
   logout = (): void => {
+    this.youtubeService.reset();
     window.localStorage.clear();
     this.isLoggedIn = false;
     this.loggedUserInfo = null;

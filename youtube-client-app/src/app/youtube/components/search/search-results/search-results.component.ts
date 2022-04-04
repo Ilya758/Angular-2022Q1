@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IFilterSettings } from 'src/app/core/components/filtering-block/filtering-block.model';
+import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 import { IItem } from '../../../models/search-item.model';
 @Component({
   selector: 'app-search-results',
@@ -9,9 +9,11 @@ import { IItem } from '../../../models/search-item.model';
 export class SearchResultsComponent implements OnInit {
   data!: IItem[];
 
-  @Input() filterSettings!: IFilterSettings;
+  youtubeService: YoutubeService;
 
-  constructor() {}
+  constructor(youtubeService: YoutubeService) {
+    this.youtubeService = youtubeService;
+  }
 
   ngOnInit(): void {
     const URL =

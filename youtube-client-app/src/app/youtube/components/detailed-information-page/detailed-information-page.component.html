@@ -1,0 +1,44 @@
+<div class="container" *ngIf="item">
+  <div class="content detailed-information__content">
+    <div class="detailed-information__img-container">
+      <a routerLink="../../" class="icon icon-back"></a>
+
+      <img
+        src="{{ item.snippet.thumbnails.maxres.url }}"
+        alt="{{ item.snippet.title }}"
+        class="detailed-information__img"
+      />
+    </div>
+
+    <div class="detailed-information__container">
+      <div class="detailed-information__top-info">
+        <h1 class="detailed-information__heading">
+          {{ item.snippet.title }}
+        </h1>
+        <p class="detailed-information__text text_type_date">
+          {{ item.snippet.publishedAt | date: "fullDate" }}
+        </p>
+      </div>
+
+      <div class="detailed-information__description">
+        <h3 class="detailed-information__heading heading_type_small">
+          Description:
+        </h3>
+        <p class="detailed-information__text text_type_date">
+          {{ item.snippet.description.slice(0, 100) + "..." }}
+        </p>
+      </div>
+
+      <app-metrics
+        class="metrics__container"
+        [item]="item.statistics"
+      ></app-metrics>
+
+      <div
+        appColor
+        [date]="item.snippet.publishedAt"
+        class="metrics__underline"
+      ></div>
+    </div>
+  </div>
+</div>

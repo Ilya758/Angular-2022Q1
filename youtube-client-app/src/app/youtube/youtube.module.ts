@@ -6,13 +6,14 @@ import { SearchResultsComponent } from './components/search/search-results/searc
 import { FilterPipe } from './pipes/filter.pipe';
 import { ColorDirective } from './directives/color.directive';
 import { SharedModule } from '../shared/shared.module';
+import { DetailedInformationPageComponent } from './components/detailed-information-page/detailed-information-page.component';
 
 @NgModule({
   declarations: [
     SearchItemComponent,
     SearchResultsComponent,
     FilterPipe,
-    ColorDirective,
+    DetailedInformationPageComponent,
   ],
   imports: [CommonModule, YoutubeRoutingModule, SharedModule],
   exports: [SearchItemComponent, SearchResultsComponent],

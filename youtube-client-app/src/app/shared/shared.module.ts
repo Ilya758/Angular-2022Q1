@@ -5,7 +5,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexDirective } from './directives/flex.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreetingPipe } from './pipes/greeting.pipe';
@@ -25,7 +24,6 @@ import { ColorDirective } from './directives/color/color.directive';
   exports: [
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
     MatGridListModule,

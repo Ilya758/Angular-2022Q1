@@ -10,12 +10,14 @@ import { FlexDirective } from './directives/flex.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreetingPipe } from './pipes/greeting.pipe';
 import { MetricsComponent } from './components/metrics/metrics.component';
+import { ColorDirective } from './directives/color/color.directive';
 
 @NgModule({
   declarations: [
     FlexDirective,
     GreetingPipe,
     MetricsComponent,
+    ColorDirective,
   ],
   imports: [CommonModule],
   exports: [
@@ -30,6 +32,7 @@ import { MetricsComponent } from './components/metrics/metrics.component';
     FlexDirective,
     GreetingPipe,
     MetricsComponent,
+    ColorDirective,
   ],
 })
 export class SharedModule {}

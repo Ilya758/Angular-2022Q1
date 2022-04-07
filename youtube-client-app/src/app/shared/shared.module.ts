@@ -10,6 +10,7 @@ import { FlexDirective } from './directives/flex.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreetingPipe } from './pipes/greeting.pipe';
 import { MetricsComponent } from './components/metrics/metrics.component';
+import { StretchDirective } from './directives/stretch/stretch.directive';
 import { ColorDirective } from './directives/color/color.directive';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ColorDirective } from './directives/color/color.directive';
     FlexDirective,
     GreetingPipe,
     MetricsComponent,
+    StretchDirective,
     ColorDirective,
   ],
   imports: [CommonModule],
@@ -32,6 +34,7 @@ import { ColorDirective } from './directives/color/color.directive';
     FlexDirective,
     GreetingPipe,
     MetricsComponent,
+    StretchDirective,
     ColorDirective,
   ],
 })

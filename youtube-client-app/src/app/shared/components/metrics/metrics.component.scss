@@ -1,0 +1,65 @@
+@import "../../../../styles/mixins";
+@import "../../../../styles/variables";
+
+.metrics__item {
+  &-list {
+    column-gap: 16px;
+  }
+}
+
+.metrics {
+  &__container {
+    @include flex();
+  }
+
+  &__text {
+    font: 400 10px "Roboto", sans-serif;
+    line-height: 12px;
+    color: $color-black;
+  }
+
+  &__heading {
+    margin: 21px 4% 0 0;
+    width: 100%;
+    color: $color-light-dark;
+    font: 700 20px "Roboto", sans-serif;
+    line-height: 23px;
+    text-align: right;
+  }
+
+  &__button {
+    margin: 0 0 15px;
+    padding: 0 40px;
+    font-size: 12px;
+    background-color: $bcg-blue;
+    border-radius: 6px;
+  }
+
+  &__underline {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    background-color: $bcg-blue;
+
+    &.underline {
+      &_color {
+        &_red {
+          background-color: $bcg-red;
+        }
+
+        &_yellow {
+          background-color: $bcg-yellow;
+        }
+
+        &_green {
+          background-color: $bcg-green;
+        }
+
+        &_blue {
+          background-color: $bcg-blue;
+        }
+      }
+    }
+  }
+}

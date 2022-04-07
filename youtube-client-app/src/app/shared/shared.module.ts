@@ -9,9 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexDirective } from './directives/flex.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreetingPipe } from './pipes/greeting.pipe';
+import { MetricsComponent } from './components/metrics/metrics.component';
 
 @NgModule({
-  declarations: [FlexDirective, GreetingPipe],
+  declarations: [
+    FlexDirective,
+    GreetingPipe,
+    MetricsComponent,
+  ],
   imports: [CommonModule],
   exports: [
     FormsModule,
@@ -24,6 +29,7 @@ import { GreetingPipe } from './pipes/greeting.pipe';
     MatIconModule,
     FlexDirective,
     GreetingPipe,
+    MetricsComponent,
   ],
 })
 export class SharedModule {}

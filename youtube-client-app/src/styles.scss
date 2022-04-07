@@ -85,4 +85,34 @@ body {
   margin: 0;
   padding: 0;
   list-style-type: none;
+
+.metrics {
+  &__underline {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 5px;
+    bottom: 0;
+    background-color: $bcg-blue;
+
+    &.underline {
+      &_color {
+        &_red {
+          background-color: $bcg-red;
+        }
+
+        &_yellow {
+          background-color: $bcg-yellow;
+        }
+
+        &_green {
+          background-color: $bcg-green;
+        }
+
+        &_blue {
+          background-color: $bcg-blue;
+        }
+      }
+    }
+  }
 }

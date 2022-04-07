@@ -10,7 +10,7 @@
         [rowspan]="1.25"
         class="search-results__item"
         *ngFor="
-          let card of data
+          let card of youtubeService.fetchedData
             | filter: 'keyword':youtubeService.filterSettings.keyword
             | filter: 'date':youtubeService.filterSettings.dateByAsc
             | filter: 'views':youtubeService.filterSettings.viewsByAsc

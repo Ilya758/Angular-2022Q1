@@ -6,32 +6,7 @@
       alt="{{ item.snippet.title }}"
     />
 
-    <ul class="list search-item__metrics">
-      <li class="metrics__container">
-        <span class="icon icon-viewed"></span>
-        <span class="text metrics__text">
-          {{ item.statistics.viewCount }}
-        </span>
-      </li>
-      <li class="metrics__container">
-        <span class="icon icon-liked"></span>
-        <span class="text metrics__text">
-          {{ item.statistics.likeCount }}
-        </span>
-      </li>
-      <li class="metrics__container">
-        <span class="icon icon-disliked"></span>
-        <span class="text metrics__text">
-          {{ item.statistics.dislikeCount }}
-        </span>
-      </li>
-      <li class="metrics__container">
-        <span class="icon icon-commented"></span>
-        <span class="text metrics__text">
-          {{ item.statistics.commentCount }}
-        </span>
-      </li>
-    </ul>
+    <app-metrics [item]="item.statistics"></app-metrics>
 
     <h2 class="heading text metrics__heading">
       {{ item.snippet.title.slice(0, 20) + "..." }}
@@ -44,5 +19,7 @@
     class="metrics__underline"
   ></div>
 
-  <button class="text metrics__button" mat-button>more...</button>
+  <a [routerLink]="['/videos', item.id]" class="text metrics__button" mat-button
+    >more...</a
+  >
 </mat-card>

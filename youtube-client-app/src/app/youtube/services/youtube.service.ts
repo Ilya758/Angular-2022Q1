@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IFilterSettings } from '../models/filterSettings.model';
+import { IItem } from '../models/search-item.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class YoutubeService {
+  fetchedData!: IItem[];
+
+  currentVideoInformation!: IItem | null;
+
   filteringBlockIsVisible = false;
 
   dataIsFetched = false;
@@ -25,7 +30,18 @@ export class YoutubeService {
   }
 
   fetchData() {
-    if (!this.dataIsFetched) this.dataIsFetched = true;
+    if (!this.dataIsFetched) {
+      this.dataIsFetched = true;
+
+      const URL =
+        'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/angular/response.json';
+      fetch(URL)
+        .then((res) => res.json())
+        .then((data) => {
+          this.fetchedData = Object.values(data)[3] as IItem[];
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   changeFilter(type: string, keyword = '') {
@@ -61,5 +77,17 @@ export class YoutubeService {
     this.filteringBlockIsVisible = false;
     this.dataIsFetched = false;
     this.userQuery.get('request')?.setValue('');
+  }
+
+  setCurrentVideoInfo(id: string) {
+    if (this.fetchedData) {
+      this.currentVideoInformation = this.fetchedData.find(
+        (video) => video.id === id
+      ) as IItem;
+    }
+  }
+
+  resetCurrentVideoInfo() {
+    this.currentVideoInformation = null;
   }
 }

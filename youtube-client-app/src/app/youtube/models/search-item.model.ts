@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/indent */
 
 import { TResponseIntersectTypes } from 'src/app/shared/models/common.model';
+import { TStatistics } from 'src/app/shared/models/statistics.model';
 
 export interface IItem extends TResponseIntersectTypes {
   id: string;
@@ -37,11 +38,6 @@ export interface IResolutionParams {
 }
 
 export type TTags = [string];
-
-export type TStatistics = Record<
-  'viewCount' | 'likeCount' | 'dislikeCount' | 'favoriteCount' | 'commentCount',
-  string
->;
 
 export type TUnionSnippetInfoTypes = 'title' | 'description';
 

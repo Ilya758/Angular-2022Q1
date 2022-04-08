@@ -149,3 +149,9 @@ body {
     }
   }
 }
+
+.ng {
+  &-invalid {
+    color: $color-red;
+  }
+}

@@ -17,6 +17,10 @@
           autocomplete="off"
           type="text"
         />
+        <p *ngIf="loginService.name?.errors" class="ng-invalid">
+          Please, be sure that your name has 3 or more symbols (without any
+          numbers)
+        </p>
       </label>
 
       <label>
@@ -27,7 +31,14 @@
           class="input login-page__input"
           placeholder="Type your password"
           type="password"
+          autocomplete="off"
         />
+
+        <p *ngIf="loginService.password?.errors" class="ng-invalid">
+          Please, be sure that your password has 4 or more symbols. <br />
+          We're highly recommended to use letters with different register,
+          including numbers
+        </p>
       </label>
 
       <div class="login-page__button-container">

@@ -1,5 +1,5 @@
 import { Component, DoCheck, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IItem } from '../../models/search-item.model';
 import { YoutubeService } from '../../services/youtube.service';
 
@@ -16,7 +16,11 @@ export class DetailedInformationPageComponent
 
   private id = this.route.snapshot.params['id'];
 
-  constructor(youtubeService: YoutubeService, private route: ActivatedRoute) {
+  constructor(
+    youtubeService: YoutubeService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.youtubeService = youtubeService;
     this.route = route;
   }
@@ -30,6 +34,11 @@ export class DetailedInformationPageComponent
   ngDoCheck(): void {
     this.youtubeService.setCurrentVideoInfo(this.id);
     this.item = this.youtubeService.currentVideoInformation as IItem;
+
+    if (!this.item) {
+      this.router.navigate(['/404']);
+      return;
+    }
   }
 
   ngOnDestroy(): void {

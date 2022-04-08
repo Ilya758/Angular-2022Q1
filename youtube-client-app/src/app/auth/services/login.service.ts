@@ -21,7 +21,7 @@ export class LoginService {
 
   loggedUserInfo: ILoggedUser | null = this.pullLoginInfo();
 
-  redirectUrl: string = '';
+  redirectUrl: string = 'videos';
 
   namePattern = /^[A-z\s]{3,}$/i;
 

@@ -23,9 +23,9 @@ export class LoginService {
 
   redirectUrl: string = 'videos';
 
-  namePattern = /^[A-z\s]{3,}$/i;
+  namePattern = /^[A-zА-я\s]{3,}$/i;
 
-  passwordPattern = /^[a-z0-9]{4,}$/i;
+  passwordPattern = /^[A-zА-я0-9]{4,}$/i;
 
   user!: FormGroup;
 
@@ -60,7 +60,7 @@ export class LoginService {
       return;
     }
 
-    const user = { ...f.value, token: uuid() } as ILoggedUser;
+    const user = { name: f.value.name, token: uuid() } as ILoggedUser;
 
     this.isLoggedIn = true;
 

@@ -29,6 +29,7 @@
               Search
             </button>
             <button
+              [disabled]="!loginService.isLoggedIn"
               type="button"
               (click)="youtubeService.changeFilteringBlockVisibility()"
               class="button icon icon-settings"

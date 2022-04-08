@@ -6,6 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SharedModule } from '../shared/shared.module';
 import { FilteringBlockComponent } from './components/filtering-block/filtering-block.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -21,5 +22,6 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     SharedModule,
     NotFoundPageComponent,
   ],
+  providers: [AuthGuard],
 })
 export class CoreModule {}

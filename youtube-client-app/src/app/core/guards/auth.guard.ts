@@ -9,9 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/auth/services/login.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) {}
 
@@ -29,7 +27,11 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin = (url: string): true | UrlTree => {
-    if (this.loginService.isLoggedIn) return true;
+    if (this.loginService.isLoggedIn) {
+      if (url === '/') this.router.navigate(['/videos']);
+
+      return true;
+    }
 
     this.loginService.redirectUrl = url;
     this.router.navigate(['/login']);

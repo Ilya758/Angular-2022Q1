@@ -1,14 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IItem } from '../../../models/search-item.model';
+import { IItem, TThumbnails } from '../../../models/search-item.model';
 
 @Component({
   selector: 'app-search-item',
   templateUrl: './search-item.component.html',
   styleUrls: ['./search-item.component.scss'],
 })
-export class SearchItemComponent implements OnInit {
+export class SearchItemComponent {
   @Input() item!: IItem;
   constructor() {}
 
-  ngOnInit(): void {}
+  resolutionChecker(thumbnails: TThumbnails) {
+    const { maxres, high, medium, standard } = thumbnails;
+
+    const resolution = [maxres, high, medium, standard].find((el) => el);
+
+    return resolution;
+  }
 }

@@ -4,7 +4,10 @@ import { TResponseIntersectTypes } from 'src/app/shared/models/common.model';
 import { TStatistics } from 'src/app/shared/models/statistics.model';
 
 export interface IItem extends TResponseIntersectTypes {
-  id: string;
+  id: {
+    kind: string;
+    videoId: string;
+  };
   snippet: ISnippet;
   statistics: TStatistics;
 }

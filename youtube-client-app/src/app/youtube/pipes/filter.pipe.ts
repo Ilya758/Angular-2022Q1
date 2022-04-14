@@ -38,7 +38,8 @@ export class FilterPipe implements PipeTransform {
 
         return value.filter((item) => {
           let regExp = new RegExp(keyword, 'i');
-          return item.snippet.tags.find((tag) => tag.match(regExp));
+
+          return item.snippet.title.match(regExp);
         });
       }
     }

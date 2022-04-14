@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoggedUser } from '../models/user.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,8 @@ export class LoginService {
 
     return userInfo ? JSON.parse(userInfo) : null;
   };
+
+  logged$ = new Subject<boolean>();
 
   isLoggedIn = false;
 
@@ -62,7 +65,7 @@ export class LoginService {
 
     const user = { name: f.value.name, token: uuid() } as ILoggedUser;
 
-    this.isLoggedIn = true;
+    this.logged$.next(true);
 
     this.loggedUserInfo = user;
 
@@ -73,7 +76,7 @@ export class LoginService {
   logout = (): void => {
     this.youtubeService.reset();
     window.localStorage.clear();
-    this.isLoggedIn = false;
+    this.logged$.next(false);
     this.loggedUserInfo = null;
     this.router.navigate(['/login']);
   };

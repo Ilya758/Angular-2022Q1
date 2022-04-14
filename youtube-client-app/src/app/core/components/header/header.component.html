@@ -9,9 +9,9 @@
             alt="logo"
           />
           <form
+            *ngIf="loginService.isLoggedIn"
             [formGroup]="youtubeService.userQuery"
             class="header__form"
-            (ngSubmit)="submitForm(youtubeService.userQuery)"
           >
             <input
               autocomplete="off"
@@ -19,15 +19,9 @@
               placeholder="What are you want to find out?"
               name="query"
               formControlName="request"
+              (keyup)="search(getValue($event))"
             />
-            <button
-              [disabled]="!loginService.isLoggedIn"
-              type="submit"
-              mat-button
-              class="header__search-button text"
-            >
-              Search
-            </button>
+
             <button
               [disabled]="!loginService.isLoggedIn"
               type="button"

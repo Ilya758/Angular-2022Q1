@@ -13,5 +13,9 @@ export class LoginPageComponent implements OnInit {
     this.loginService = loginService;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginService.logged$.subscribe((predicate) => {
+      this.loginService.isLoggedIn = predicate;
+    });
+  }
 }

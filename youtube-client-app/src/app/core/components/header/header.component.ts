@@ -28,9 +28,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchText$.pipe(debounceTime(1000)).subscribe((receivedText) => {
+    this.searchText$.pipe(debounceTime(1000)).subscribe(() => {
       this.youtubeService.userQuery.get(['request'])?.value.length >= 3 &&
-        this.youtubeService.fetchData(receivedText);
+        this.youtubeService.fetchData();
     });
   }
 

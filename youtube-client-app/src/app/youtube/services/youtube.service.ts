@@ -1,7 +1,11 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { catchError, throwError } from 'rxjs';
+import { getRequiredUrlWithPath } from 'src/utils/getRequiredUrlWithPath';
 import { IFilterSettings } from '../models/filterSettings.model';
 import { IItem } from '../models/search-item.model';
+import { IResponse } from '../models/search-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +17,6 @@ export class YoutubeService {
 
   filteringBlockIsVisible = false;
 
-  dataIsFetched = false;
-
   filterSettings: IFilterSettings = {
     dateByAsc: false,
     viewsByAsc: false,
@@ -25,23 +27,53 @@ export class YoutubeService {
     request: new FormControl(['']),
   });
 
+  constructor(private httpClient: HttpClient) {
+    this.httpClient = httpClient;
+  }
+
   changeFilteringBlockVisibility() {
     this.filteringBlockIsVisible = !this.filteringBlockIsVisible;
   }
 
-  fetchData() {
-    if (!this.dataIsFetched) {
-      this.dataIsFetched = true;
-
-      const URL =
-        'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/angular/response.json';
-      fetch(URL)
-        .then((res) => res.json())
-        .then((data) => {
-          this.fetchedData = Object.values(data)[3] as IItem[];
-        })
-        .catch((err) => console.log(err));
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Server returned code ${error.status}, body was: `,
+        error.error
+      );
     }
+
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
+  }
+
+  fetchData() {
+    const { href } = new URL(getRequiredUrlWithPath('search'));
+
+    this.httpClient
+      .get<IResponse>(href)
+      .pipe(catchError(this.handleError))
+      .subscribe((response) => {
+        const { items } = response;
+
+        const ids = items.map((item) => item.id.videoId).join(',');
+
+        this.fetchStatistics(ids);
+      });
+  }
+
+  fetchStatistics(ids: string) {
+    const { href } = new URL(getRequiredUrlWithPath('videos'));
+
+    this.httpClient
+      .get<IResponse>(href, { params: { id: ids } })
+      .pipe(catchError(this.handleError))
+      .subscribe((response) => {
+        this.fetchedData = response.items;
+      });
   }
 
   changeFilter(type: string, keyword = '') {
@@ -75,14 +107,14 @@ export class YoutubeService {
     };
 
     this.filteringBlockIsVisible = false;
-    this.dataIsFetched = false;
+
     this.userQuery.get('request')?.setValue('');
   }
 
   setCurrentVideoInfo(id: string) {
     if (this.fetchedData) {
       this.currentVideoInformation = this.fetchedData.find(
-        (video) => video.id === id
+        (video) => video.id.videoId === id
       ) as IItem;
     }
   }

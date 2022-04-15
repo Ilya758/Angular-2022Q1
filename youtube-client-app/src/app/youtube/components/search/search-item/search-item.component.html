@@ -2,7 +2,7 @@
   <div class="search-item__info">
     <img
       class="search-item__img"
-      src="{{ resolutionChecker(item.snippet.thumbnails) }}"
+      src="{{ resolutionChecker(item.snippet.thumbnails)?.url }}"
       alt="{{ item.snippet.title }}"
     />
 

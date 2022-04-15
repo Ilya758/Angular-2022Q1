@@ -113,9 +113,10 @@ export class YoutubeService {
 
   setCurrentVideoInfo(id: string) {
     if (this.fetchedData) {
-      this.currentVideoInformation = this.fetchedData.find(
-        (video) => video.id.videoId === id
-      ) as IItem;
+      this.currentVideoInformation = this.fetchedData.find((video) => {
+        const currId = video.id as unknown as string;
+        return currId === id;
+      }) as IItem;
     }
   }
 

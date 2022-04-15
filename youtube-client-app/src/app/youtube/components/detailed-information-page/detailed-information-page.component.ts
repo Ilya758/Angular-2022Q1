@@ -8,9 +8,7 @@ import { YoutubeService } from '../../services/youtube.service';
   templateUrl: './detailed-information-page.component.html',
   styleUrls: ['./detailed-information-page.component.scss'],
 })
-export class DetailedInformationPageComponent
-  implements OnInit, DoCheck, OnDestroy
-{
+export class DetailedInformationPageComponent implements DoCheck, OnDestroy {
   youtubeService!: YoutubeService;
   @Input() item!: IItem;
 
@@ -23,12 +21,6 @@ export class DetailedInformationPageComponent
   ) {
     this.youtubeService = youtubeService;
     this.route = route;
-  }
-
-  ngOnInit(): void {
-    if (!this.youtubeService.dataIsFetched) {
-      this.youtubeService.fetchData();
-    }
   }
 
   ngDoCheck(): void {

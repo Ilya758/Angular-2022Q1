@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FlexDirective } from './directives/flex.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GreetingPipe } from './pipes/greeting.pipe';
 import { MetricsComponent } from './components/metrics/metrics.component';
 import { StretchDirective } from './directives/stretch/stretch.directive';
@@ -29,6 +30,7 @@ import { ColorDirective } from './directives/color/color.directive';
     MatGridListModule,
     MatCardModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     FlexDirective,
     GreetingPipe,
     MetricsComponent,

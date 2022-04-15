@@ -17,4 +17,16 @@
     height: 100%;
     width: 100%;
   }
+
+  &__spinner {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+
+    &::ng-deep .mat-progress-spinner circle,
+    .mat-spinner circle {
+      stroke: #2f80ed;
+    }
+  }
 }

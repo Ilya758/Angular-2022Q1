@@ -14,5 +14,8 @@ export class SearchResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.youtubeService.resetCurrentVideoInfo();
+    this.youtubeService.loading$.subscribe(
+      (loadingState) => (this.youtubeService.dataIsLoading = loadingState)
+    );
   }
 }

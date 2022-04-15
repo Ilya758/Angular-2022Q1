@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Subject, throwError } from 'rxjs';
 import { getRequiredUrlWithPath } from 'src/utils/getRequiredUrlWithPath';
 import { IFilterSettings } from '../models/filterSettings.model';
 import { IItem } from '../models/search-item.model';
@@ -27,6 +27,10 @@ export class YoutubeService {
     request: new FormControl(['']),
   });
 
+  dataIsLoading = false;
+
+  loading$ = new Subject<boolean>();
+
   constructor(private httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
@@ -50,8 +54,14 @@ export class YoutubeService {
     );
   }
 
+  setLoading() {
+    this.loading$.next(!this.dataIsLoading);
+  }
+
   fetchData() {
     const { href } = new URL(getRequiredUrlWithPath('search'));
+
+    this.setLoading();
 
     this.httpClient
       .get<IResponse>(href)
@@ -73,6 +83,8 @@ export class YoutubeService {
       .pipe(catchError(this.handleError))
       .subscribe((response) => {
         this.fetchedData = response.items;
+
+        this.setLoading();
       });
   }
 

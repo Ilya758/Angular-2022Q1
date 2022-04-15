@@ -1,10 +1,11 @@
-<div class="container" *ngIf="youtubeService.fetchedData">
+<div class="container search-results-container">
   <div class="search-results__content">
     <mat-grid-list
       rowHeight="0.75:1"
       cols="4"
       class="search-results__grid-list"
       gutterSize="29px 28px"
+      *ngIf="youtubeService.fetchedData && !youtubeService.dataIsLoading"
     >
       <mat-grid-tile
         [rowspan]="1.25"
@@ -22,5 +23,12 @@
         ></app-search-item>
       </mat-grid-tile>
     </mat-grid-list>
+
+    <div class="search-results__spinner">
+      <mat-spinner
+        id="spinner"
+        *ngIf="youtubeService.dataIsLoading"
+      ></mat-spinner>
+    </div>
   </div>
 </div>

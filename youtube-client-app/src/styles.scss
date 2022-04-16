@@ -160,3 +160,50 @@ body {
     }
   }
 }
+
+.form {
+  @include flex(column, center, stretch);
+
+  width: 100%;
+  height: 100%;
+  max-width: 344px;
+  margin-top: 45px;
+  padding: 38px 25px 32px;
+  background-color: $bcg-medium-gray;
+  border-radius: 18px;
+
+  &__heading {
+    text-align: left;
+    color: $color-black;
+  }
+
+  &__label {
+    text-align: left;
+    color: $color-second-gray;
+
+    &:nth-child(1) {
+      margin-top: 5px;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 13px 0 12px 9px;
+    background-color: $bcg-light-second-gray;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: $color-black;
+  }
+
+  &__button {
+    max-height: 30px;
+    width: 100%;
+    max-width: 124px;
+    background: $bcg-light-blue;
+
+    &-container {
+      text-align: right;
+    }
+  }
+}

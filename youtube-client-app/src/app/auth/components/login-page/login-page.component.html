@@ -3,16 +3,16 @@
     <form
       [formGroup]="loginService.user"
       (ngSubmit)="loginService.login(loginService.user)"
-      class="login-page__form"
+      class="form login-page__form"
     >
-      <h1 class="login-page__heading">Login</h1>
+      <h1 class="form__heading login-page__heading">Login</h1>
 
       <label>
-        <h2 class="login-page__label">login</h2>
+        <h2 class="form__label login-page__label">login</h2>
         <input
           formControlName="name"
           name="name"
-          class="input login-page__input"
+          class="input form__input login-page__input"
           [ngClass]="{
             'ng-invalid-field':
               loginService.name?.invalid && loginService.name?.touched
@@ -39,11 +39,11 @@
       </label>
 
       <label>
-        <h2 class="login-page__label">password</h2>
+        <h2 class="form__label login-page__label">password</h2>
         <input
           formControlName="password"
           name="password"
-          class="input login-page__input"
+          class="input form__input login-page__input"
           [ngClass]="{
             'ng-invalid-field':
               loginService.password?.invalid && loginService.password?.touched
@@ -92,7 +92,7 @@
           [disabled]="
             !loginService.name?.value || !loginService.password?.value
           "
-          class="button login-page__button"
+          class="button form__button login-page__button"
           mat-button
           type="submit"
         >

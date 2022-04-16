@@ -28,7 +28,10 @@ export class LoginService {
 
   namePattern = /^[A-zА-я\s]{3,}$/i;
 
-  passwordPattern = /^[A-zА-я0-9]{4,}$/i;
+  passwordPattern = /^[\w\W]{8,}$/i;
+
+  enhancedPasswordPattern =
+    /([A-Z]+)(([a-z]*)?)([\W\d]+)|([\W\d]+)(([a-z]*)?)([A-Z]+)|([A-Z]+)(([a-z]*)?)([A-Z]+)|([\W]+)(([a-z]*)?)([\W\d]+)/g;
 
   user!: FormGroup;
 
@@ -40,10 +43,19 @@ export class LoginService {
     youtubeService: YoutubeService
   ) {
     this.youtubeService = youtubeService;
-    this.user = fb.group({
-      name: ['', [Validators.pattern(this.namePattern)]],
-      password: ['', Validators.pattern(this.passwordPattern)],
-    });
+    this.user = fb.group(
+      {
+        name: ['', [Validators.pattern(this.namePattern)]],
+        password: [
+          '',
+          [
+            Validators.pattern(this.passwordPattern),
+            Validators.pattern(this.enhancedPasswordPattern),
+          ],
+        ],
+      },
+      { updateOn: 'blur' }
+    );
   }
 
   commitLoginInfo = (key: string, data: unknown): void => {

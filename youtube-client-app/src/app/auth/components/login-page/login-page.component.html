@@ -13,13 +13,28 @@
           formControlName="name"
           name="name"
           class="input login-page__input"
+          [ngClass]="{
+            'ng-invalid-field':
+              loginService.name?.invalid && loginService.name?.touched
+          }"
           placeholder="Type your name"
           autocomplete="off"
+          required=""
           type="text"
         />
-        <p *ngIf="loginService.name?.errors" class="ng-invalid">
+
+        <p
+          *ngIf="loginService.name?.errors && loginService.name?.value"
+          class="ng-invalid"
+        >
           Please, be sure that your name has 3 or more symbols (without any
           numbers)
+        </p>
+
+        <p
+          *ngIf="loginService.name?.errors?.['required'] && loginService.name?.touched"
+        >
+          Please enter a login email
         </p>
       </label>
 
@@ -29,15 +44,46 @@
           formControlName="password"
           name="password"
           class="input login-page__input"
+          [ngClass]="{
+            'ng-invalid-field':
+              loginService.password?.invalid && loginService.password?.touched
+          }"
           placeholder="Type your password"
-          type="password"
+          type="text"
+          required
+          minlength="8"
           autocomplete="off"
+          [value]="loginService.password"
         />
 
-        <p *ngIf="loginService.password?.errors" class="ng-invalid">
-          Please, be sure that your password has 4 or more symbols. <br />
-          We're highly recommended to use letters with different register,
-          including numbers
+        <p
+          *ngIf="loginService.password?.errors?.['required'] && loginService.password?.touched"
+        >
+          Please enter a password
+        </p>
+
+        <p
+          *ngIf="
+            loginService.password?.errors &&
+            loginService.password?.value.length >= 8
+          "
+          class="ng-invalid"
+        >
+          Your password isn't strong enough!
+
+          <span>
+            Type at least 8 characters, a mixture of both uppercase and
+            lowercase, letters a mixture of letters and numbers, include of at
+            least one special character, e.g., ! @ # ? ]
+          </span>
+        </p>
+
+        <p
+          *ngIf="
+            loginService.password?.errors?.['minlength'] && loginService.password?.dirty
+          "
+        >
+          The password is too short (type at least 8 symbols)
         </p>
       </label>
 

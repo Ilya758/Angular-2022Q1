@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoggedUser } from '../models/user.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
-import { Subject } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,10 @@ export class LoginService {
 
   logged$ = new Subject<boolean>();
 
+  createdCard$ = new Subject<boolean>();
+
+  cardIsCreated = false;
+
   isLoggedIn = false;
 
   loggedUserInfo: ILoggedUser | null = this.pullLoginInfo();
@@ -33,7 +37,11 @@ export class LoginService {
   enhancedPasswordPattern =
     /([A-Z]+)(([a-z]*)?)([\W\d]+)|([\W\d]+)(([a-z]*)?)([A-Z]+)|([A-Z]+)(([a-z]*)?)([A-Z]+)|([\W]+)(([a-z]*)?)([\W\d]+)/g;
 
+  urlPattern = /^((https?[\:]\/\/)www[\.])[a-z]*.[a-z]{2,}\/[\w\W]*/;
+
   user!: FormGroup;
+
+  admin!: FormGroup;
 
   youtubeService: YoutubeService;
 
@@ -56,6 +64,22 @@ export class LoginService {
       },
       { updateOn: 'blur' }
     );
+    this.admin = fb.group(
+      {
+        title: [
+          '',
+          [
+            Validators.minLength(3),
+            Validators.maxLength(20),
+            Validators.required,
+          ],
+        ],
+        description: ['', Validators.maxLength(255)],
+        linkImg: ['', [Validators.pattern(this.urlPattern)]],
+        linkVideo: ['', [Validators.pattern(this.urlPattern)]],
+      },
+      { updateOn: 'blur' }
+    );
   }
 
   commitLoginInfo = (key: string, data: unknown): void => {
@@ -70,6 +94,22 @@ export class LoginService {
     return this.user.get('password');
   }
 
+  get title() {
+    return this.admin.get('title');
+  }
+
+  get description() {
+    return this.admin.get('description');
+  }
+
+  get linkImg() {
+    return this.admin.get('linkImg');
+  }
+
+  get linkVideo() {
+    return this.admin.get('linkVideo');
+  }
+
   login = (f: FormGroup): void => {
     if (f.invalid) {
       return;
@@ -82,8 +122,15 @@ export class LoginService {
     this.loggedUserInfo = user;
 
     this.commitLoginInfo('user', user);
-    this.router.navigate([this.redirectUrl]);
+
+    this.isAdmin()
+      ? this.router.navigate(['admin'])
+      : this.router.navigate([this.redirectUrl]);
   };
+
+  isAdmin() {
+    return this.name?.value === 'admin';
+  }
 
   logout = (): void => {
     this.youtubeService.reset();
@@ -92,4 +139,10 @@ export class LoginService {
     this.loggedUserInfo = null;
     this.router.navigate(['/login']);
   };
+
+  createCard(f: FormGroup) {
+    this.createdCard$.next(true);
+
+    f.reset();
+  }
 }

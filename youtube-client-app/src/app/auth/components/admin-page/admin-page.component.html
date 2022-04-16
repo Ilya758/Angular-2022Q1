@@ -1,0 +1,166 @@
+<div class="container">
+  <div class="content admin-page__content">
+    <form
+      [formGroup]="loginService.admin"
+      (ngSubmit)="loginService.createCard(loginService.admin)"
+      class="form admin-page__form"
+    >
+      <h1 class="form__heading admin-page__heading">Create new card</h1>
+
+      <label>
+        <h2 class="form__label admin-page__label">Title</h2>
+        <input
+          formControlName="title"
+          name="title"
+          class="input form__input admin-page__input"
+          [ngClass]="{
+            'ng-invalid-field':
+              loginService.title?.invalid && loginService.title?.touched
+          }"
+          autocomplete="off"
+          required
+          type="text"
+        />
+
+        <p *ngIf="loginService.title?.errors?.['minlength']" class="ng-invalid">
+          The title is too short
+        </p>
+
+        <p *ngIf="loginService.title?.errors?.['maxlength']" class="ng-invalid">
+          The title is too long
+        </p>
+
+        <p
+          *ngIf="loginService.title?.errors?.['required'] && loginService.title?.touched"
+        >
+          Please enter a title
+        </p>
+      </label>
+
+      <label>
+        <h2 class="form__label admin-page__label">Description</h2>
+        <input
+          formControlName="description"
+          name="description"
+          class="input form__input admin-page__input"
+          [ngClass]="{
+            'ng-invalid-field':
+              loginService.description?.invalid &&
+              loginService.description?.touched
+          }"
+          type="text"
+          required
+          autocomplete="off"
+        />
+
+        <p
+          *ngIf="loginService.description?.errors?.['required'] && loginService.description?.touched"
+        >
+          Please enter a description
+        </p>
+
+        <p
+          *ngIf="
+            loginService.description?.errors?.['maxlength']
+          "
+          class="ng-invalid"
+        >
+          The description is too long
+        </p>
+
+        <p
+          *ngIf="
+              loginService.password?.errors?.['minlength'] && loginService.password?.dirty
+            "
+        >
+          The password is too short (type at least 8 symbols)
+        </p>
+      </label>
+
+      <label>
+        <h2 class="form__label admin-page__label">Img</h2>
+        <input
+          formControlName="linkImg"
+          name="linkImg"
+          class="input form__input admin-page__input"
+          [ngClass]="{
+            'ng-invalid-field':
+              loginService.linkImg?.invalid && loginService.linkImg?.touched
+          }"
+          type="text"
+          required
+          minlength="8"
+          autocomplete="off"
+        />
+
+        <p
+          *ngIf="loginService.linkImg?.errors?.['required'] && loginService.linkImg?.touched"
+        >
+          Please enter a link to the image
+        </p>
+
+        <p
+          *ngIf="
+            loginService.linkImg?.errors &&
+            loginService.linkImg?.dirty &&
+            loginService.linkImg?.value
+          "
+        >
+          The image link is invalid
+        </p>
+      </label>
+
+      <label>
+        <h2 class="form__label admin-page__label">Link video</h2>
+        <input
+          formControlName="linkVideo"
+          name="linkVideo"
+          class="input form__input admin-page__input"
+          [ngClass]="{
+            'ng-invalid-field':
+              loginService.linkVideo?.invalid && loginService.linkVideo?.touched
+          }"
+          type="text"
+          required
+          autocomplete="off"
+        />
+
+        <p
+          *ngIf="loginService.linkVideo?.errors?.['required'] && loginService.linkVideo?.touched"
+        >
+          Please enter a link to the video
+        </p>
+
+        <p
+          *ngIf="
+            loginService.linkVideo?.errors &&
+            loginService.linkVideo?.dirty &&
+            loginService.linkVideo?.value
+          "
+        >
+          The video link is invalid
+        </p>
+      </label>
+
+      <div class="form__button-container">
+        <button
+          class="button admin-page__button form__button"
+          mat-button
+          type="submit"
+          [disabled]="
+            !loginService.title?.value ||
+            !loginService.description?.value ||
+            !loginService.linkImg?.value ||
+            !loginService.linkVideo?.value
+          "
+        >
+          Create card
+        </button>
+      </div>
+
+      <p *ngIf="loginService.cardIsCreated">
+        Card has been successfully created!
+      </p>
+    </form>
+  </div>
+</div>

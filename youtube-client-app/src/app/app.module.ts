@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HelpInterceptor } from './interceptors/help.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { loginReducer } from './redux/reducers/login.reducer';
+import { youtubeReducer } from './redux/reducers/youtube.reducer';
 
 export const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: HelpInterceptor, multi: true },
@@ -25,6 +29,8 @@ export const httpInterceptorProviders = [
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    StoreModule.forRoot({ loginReducer, youtubeReducer }),
+    EffectsModule.forRoot(),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

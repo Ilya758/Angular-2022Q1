@@ -158,7 +158,7 @@
         </button>
       </div>
 
-      <p *ngIf="loginService.cardIsCreated">
+      <p *ngIf="loginService.cardIsCreated$ | async">
         Card has been successfully created!
       </p>
     </form>

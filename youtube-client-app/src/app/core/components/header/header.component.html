@@ -9,7 +9,7 @@
             alt="logo"
           />
           <form
-            *ngIf="loginService.isLoggedIn"
+            *ngIf="loginService.isLoggedIn$ | async"
             [formGroup]="youtubeService.userQuery"
             class="header__form"
           >
@@ -23,7 +23,7 @@
             />
 
             <button
-              [disabled]="!loginService.isLoggedIn"
+              [disabled]="!(loginService.isLoggedIn$ | async)"
               type="button"
               (click)="youtubeService.changeFilteringBlockVisibility()"
               class="button icon icon-settings"
@@ -33,12 +33,14 @@
       </div>
 
       <div class="header__info-container">
-        <h2 *ngIf="loginService.loggedUserInfo" class="text header__info-text">
-          {{ loginService.loggedUserInfo!.name | greeting }}
+        <h2 *ngIf="loggedUserInfo$ | async" class="text header__info-text">
+          {{ (loggedUserInfo$ | async)!.name | greeting }}
         </h2>
+
         <span class="icon icon-user"></span>
+
         <button
-          *ngIf="loginService.isLoggedIn"
+          *ngIf="loginService.isLoggedIn$ | async"
           mat-button
           (click)="loginService.logout()"
           class="button header__search-button text"

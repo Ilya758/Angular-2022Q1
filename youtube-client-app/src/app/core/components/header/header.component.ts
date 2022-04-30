@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { debounce, debounceTime, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { debounceTime, Observable, Subject } from 'rxjs';
+import { ILoggedUser } from 'src/app/auth/models/user.model';
 import { LoginService } from 'src/app/auth/services/login.service';
+import { selectUserInfo } from 'src/app/redux/selectors/login.selectors';
+import { IState } from 'src/app/redux/state.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
 
 @Component({
@@ -15,16 +18,23 @@ export class HeaderComponent implements OnInit {
 
   loginService: LoginService;
 
+  loggedUserInfo$!: Observable<ILoggedUser | null>;
+
   private searchText$ = new Subject<string>();
 
   constructor(
     loginService: LoginService,
     youtubeService: YoutubeService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private store: Store<IState>
   ) {
     this.loginService = loginService;
+
     this.youtubeService = youtubeService;
+
     this.httpClient = httpClient;
+
+    this.loggedUserInfo$ = this.store.select(selectUserInfo);
   }
 
   ngOnInit(): void {

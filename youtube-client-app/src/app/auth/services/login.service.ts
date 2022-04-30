@@ -4,29 +4,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILoggedUser } from '../models/user.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
-import { debounceTime, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  selectCardIsCreated,
+  selectIsLoggedIn,
+} from 'src/app/redux/selectors/login.selectors';
+import { IState } from 'src/app/redux/state.model';
+import {
+  resetUserInfo,
+  setCardIsCreated,
+  setUserInfo,
+} from 'src/app/redux/actions/login.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  pullLoginInfo = (): ILoggedUser | null => {
+  pullLoginInfo = (): void => {
     const userInfo = window.localStorage.getItem('user');
 
-    this.isLoggedIn = userInfo?.length ? true : false;
+    const loggedUserInfo: ILoggedUser | null = userInfo
+      ? JSON.parse(userInfo)
+      : null;
 
-    return userInfo ? JSON.parse(userInfo) : null;
+    this.store.dispatch(setUserInfo({ loggedUserInfo }));
   };
-
-  logged$ = new Subject<boolean>();
-
-  createdCard$ = new Subject<boolean>();
-
-  cardIsCreated = false;
-
-  isLoggedIn = false;
-
-  loggedUserInfo: ILoggedUser | null = this.pullLoginInfo();
 
   redirectUrl: string = 'videos';
 
@@ -43,13 +46,21 @@ export class LoginService {
 
   admin!: FormGroup;
 
-  youtubeService: YoutubeService;
+  isLoggedIn$: Observable<boolean>;
+
+  cardIsCreated$: Observable<boolean>;
 
   constructor(
     fb: FormBuilder,
     private router: Router,
-    youtubeService: YoutubeService
+    private youtubeService: YoutubeService,
+    private store: Store<IState>
   ) {
+    this.isLoggedIn$ = store.select(selectIsLoggedIn);
+    this.cardIsCreated$ = store.select(selectCardIsCreated);
+
+    this.pullLoginInfo();
+
     this.youtubeService = youtubeService;
     this.user = fb.group(
       {
@@ -115,33 +126,35 @@ export class LoginService {
       return;
     }
 
-    const user = { name: f.value.name, token: uuid() } as ILoggedUser;
+    const loggedUserInfo = {
+      name: f.value.name,
+      token: uuid(),
+    } as ILoggedUser;
 
-    this.logged$.next(true);
+    this.store.dispatch(setUserInfo({ loggedUserInfo }));
 
-    this.loggedUserInfo = user;
+    this.commitLoginInfo('user', loggedUserInfo);
 
-    this.commitLoginInfo('user', user);
+    f.reset();
 
-    this.isAdmin()
+    this.isAdmin(loggedUserInfo.name)
       ? this.router.navigate(['admin'])
       : this.router.navigate([this.redirectUrl]);
   };
 
-  isAdmin() {
-    return this.name?.value === 'admin';
+  isAdmin(name: string) {
+    return name === 'admin';
   }
 
   logout = (): void => {
     this.youtubeService.reset();
     window.localStorage.clear();
-    this.logged$.next(false);
-    this.loggedUserInfo = null;
+    this.store.dispatch(resetUserInfo());
     this.router.navigate(['/login']);
   };
 
   createCard(f: FormGroup) {
-    this.createdCard$.next(true);
+    this.store.dispatch(setCardIsCreated());
 
     f.reset();
   }

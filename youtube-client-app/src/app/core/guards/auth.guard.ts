@@ -6,12 +6,26 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/auth/services/login.service';
+import { IState } from 'src/app/redux/state.model';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private loginService: LoginService, private router: Router) {}
+  isLoggedIn!: boolean;
+
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private store: Store<IState>
+  ) {
+    this.store.subscribe(({ loginReducer: { isLoggedIn } }) => {
+      if (!this.isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+      }
+    });
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,8 +40,8 @@ export class AuthGuard implements CanActivate {
     return this.checkLogin(url);
   }
 
-  checkLogin = (url: string): true | UrlTree => {
-    if (this.loginService.isLoggedIn) {
+  checkLogin = async (url: string): Promise<boolean | UrlTree> => {
+    if (this.isLoggedIn) {
       if (url === '/') this.router.navigate(['/videos']);
 
       return true;

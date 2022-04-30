@@ -57,14 +57,16 @@
         />
 
         <p
-          *ngIf="loginService.password?.errors?.['required'] && loginService.password?.touched"
+          *ngIf="loginService.user?.dirty && loginService.password?.errors?.['required'] && loginService.password?.touched"
         >
           Please enter a password
         </p>
 
         <p
           *ngIf="
+            loginService.user['dirty'] &&
             loginService.password?.errors &&
+            loginService.password?.value &&
             loginService.password?.value.length >= 8
           "
           class="ng-invalid"

@@ -6,16 +6,10 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
   loginService!: LoginService;
 
   constructor(loginService: LoginService) {
     this.loginService = loginService;
-  }
-
-  ngOnInit(): void {
-    this.loginService.logged$.subscribe((predicate) => {
-      this.loginService.isLoggedIn = predicate;
-    });
   }
 }

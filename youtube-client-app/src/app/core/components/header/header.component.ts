@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { debounceTime, Observable, Subject } from 'rxjs';
 import { ILoggedUser } from 'src/app/auth/models/user.model';
 import { LoginService } from 'src/app/auth/services/login.service';
+import { fetchData } from 'src/app/redux/actions/youtube.actions';
 import { selectUserInfo } from 'src/app/redux/selectors/login.selectors';
 import { IState } from 'src/app/redux/state.model';
 import { YoutubeService } from 'src/app/youtube/services/youtube.service';
@@ -40,7 +41,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.searchText$.pipe(debounceTime(1000)).subscribe(() => {
       this.youtubeService.userQuery.get(['request'])?.value.length >= 3 &&
-        this.youtubeService.fetchData();
+        this.store.dispatch(fetchData());
     });
   }
 

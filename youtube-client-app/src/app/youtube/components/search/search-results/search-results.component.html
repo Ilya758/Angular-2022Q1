@@ -5,16 +5,16 @@
       cols="4"
       class="search-results__grid-list"
       gutterSize="29px 28px"
-      *ngIf="youtubeService.fetchedData && !youtubeService.dataIsLoading"
+      *ngIf="(fetchedData$ | async) && !(dataIsLoading$ | async)"
     >
       <mat-grid-tile
         [rowspan]="1.25"
         class="search-results__item"
         *ngFor="
-          let card of youtubeService.fetchedData
-            | filter: 'keyword':youtubeService.filterSettings.keyword
-            | filter: 'date':youtubeService.filterSettings.dateByAsc
-            | filter: 'views':youtubeService.filterSettings.viewsByAsc
+          let card of (fetchedData$ | async)!
+            | filter: 'keyword':(filterSettings$ | async)!.keyword
+            | filter: 'views':(filterSettings$ | async)!.viewsByAsc
+            | filter: 'date':(filterSettings$ | async)!.dateByAsc
         "
       >
         <app-search-item
@@ -25,10 +25,7 @@
     </mat-grid-list>
 
     <div class="search-results__spinner">
-      <mat-spinner
-        id="spinner"
-        *ngIf="youtubeService.dataIsLoading"
-      ></mat-spinner>
+      <mat-spinner id="spinner" *ngIf="dataIsLoading$ | async"></mat-spinner>
     </div>
   </div>
 </div>

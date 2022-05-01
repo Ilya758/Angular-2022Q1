@@ -1,11 +1,11 @@
-<div class="container" *ngIf="item">
+<div class="container" *ngIf="currentVideoInformation">
   <div class="content detailed-information__content">
     <div class="detailed-information__img-container">
       <a routerLink="../" class="icon icon-back"></a>
 
       <img
-        src="{{ item.snippet.thumbnails.maxres.url }}"
-        alt="{{ item.snippet.title }}"
+        src="{{ currentVideoInformation.snippet.thumbnails.maxres.url }}"
+        alt="{{ currentVideoInformation.snippet.title }}"
         class="detailed-information__img"
       />
     </div>
@@ -13,10 +13,10 @@
     <div class="detailed-information__container">
       <div class="detailed-information__top-info">
         <h1 class="detailed-information__heading">
-          {{ item.snippet.title }}
+          {{ currentVideoInformation.snippet.title }}
         </h1>
         <p class="detailed-information__text text_type_date">
-          {{ item.snippet.publishedAt | date: "fullDate" }}
+          {{ currentVideoInformation.snippet.publishedAt | date: "fullDate" }}
         </p>
       </div>
 
@@ -25,18 +25,20 @@
           Description:
         </h3>
         <p class="detailed-information__text text_type_date">
-          {{ item.snippet.description.slice(0, 100) + "..." }}
+          {{
+            currentVideoInformation.snippet.description.slice(0, 100) + "..."
+          }}
         </p>
       </div>
 
       <app-metrics
         class="metrics__container"
-        [item]="item.statistics"
+        [item]="currentVideoInformation.statistics"
       ></app-metrics>
 
       <div
         appColor
-        [date]="item.snippet.publishedAt"
+        [date]="currentVideoInformation.snippet.publishedAt"
         class="metrics__underline"
       ></div>
     </div>

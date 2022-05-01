@@ -8,11 +8,13 @@ export class FilterPipe implements PipeTransform {
   transform(value: IItem[], ...args: [string, boolean | string]): any {
     if (!value) return;
 
+    const array = [...value];
+
     const [type, predicate] = args;
 
     switch (type) {
       case 'date': {
-        return value.sort((a, b) => {
+        return array.sort((a, b) => {
           const firstDate = Date.parse(a.snippet.publishedAt);
           const secondDate = Date.parse(b.snippet.publishedAt);
 
@@ -21,7 +23,7 @@ export class FilterPipe implements PipeTransform {
       }
 
       case 'views': {
-        return value.sort((a, b) => {
+        return array.sort((a, b) => {
           const { viewCount: first } = a.statistics;
           const { viewCount: second } = b.statistics;
 
@@ -33,10 +35,10 @@ export class FilterPipe implements PipeTransform {
         const keyword = predicate as string;
 
         if (keyword.length < 2) {
-          return value;
+          return array;
         }
 
-        return value.filter((item) => {
+        return array.filter((item) => {
           let regExp = new RegExp(keyword, 'i');
 
           return item.snippet.title.match(regExp);
@@ -44,6 +46,6 @@ export class FilterPipe implements PipeTransform {
       }
     }
 
-    return value;
+    return array;
   }
 }

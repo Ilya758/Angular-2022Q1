@@ -1,9 +1,20 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { catchError, Subject, throwError } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subject, throwError } from 'rxjs';
+import {
+  changeFilter,
+  resetFilter,
+} from 'src/app/redux/actions/filter.actions';
+import {
+  changeFilteringBlockVisibility,
+  resetCurrentVideoInfo,
+  setCurrentVideoInfo,
+  setIsLoading,
+} from 'src/app/redux/actions/youtube.actions';
+import { IFilterReducer, IState } from 'src/app/redux/state.model';
 import { getRequiredUrlWithPath } from 'src/utils/getRequiredUrlWithPath';
-import { IFilterSettings } from '../models/filterSettings.model';
 import { IItem } from '../models/search-item.model';
 import { IResponse } from '../models/search-response.model';
 
@@ -11,35 +22,33 @@ import { IResponse } from '../models/search-response.model';
   providedIn: 'root',
 })
 export class YoutubeService {
-  fetchedData!: IItem[];
-
   currentVideoInformation!: IItem | null;
 
-  filteringBlockIsVisible = false;
+  filteringBlockIsVisible$: Observable<boolean>;
 
-  filterSettings: IFilterSettings = {
-    dateByAsc: false,
-    viewsByAsc: false,
-    keyword: '',
-  };
+  filterSettings$: Observable<IFilterReducer>;
 
   userQuery = new FormGroup({
     request: new FormControl(['']),
   });
 
-  dataIsLoading = false;
-
   loading$ = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private store: Store<IState>) {
     this.httpClient = httpClient;
+
+    this.filterSettings$ = this.store.select((state) => state.filterReducer);
+
+    this.filteringBlockIsVisible$ = this.store.select(
+      (state) => state.youtubeReducer.filteringBlockIsVisible
+    );
   }
 
   changeFilteringBlockVisibility() {
-    this.filteringBlockIsVisible = !this.filteringBlockIsVisible;
+    this.store.dispatch(changeFilteringBlockVisibility({}));
   }
 
-  private handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
     } else {
@@ -54,85 +63,37 @@ export class YoutubeService {
     );
   }
 
-  setLoading() {
-    this.loading$.next(!this.dataIsLoading);
-  }
-
   fetchData() {
     const { href } = new URL(getRequiredUrlWithPath('search'));
 
-    this.setLoading();
+    this.store.dispatch(setIsLoading());
 
-    this.httpClient
-      .get<IResponse>(href)
-      .pipe(catchError(this.handleError))
-      .subscribe((response) => {
-        const { items } = response;
-
-        const ids = items.map((item) => item.id.videoId).join(',');
-
-        this.fetchStatistics(ids);
-      });
+    return this.httpClient.get<IResponse>(href);
   }
 
   fetchStatistics(ids: string) {
     const { href } = new URL(getRequiredUrlWithPath('videos'));
 
-    this.httpClient
-      .get<IResponse>(href, { params: { id: ids } })
-      .pipe(catchError(this.handleError))
-      .subscribe((response) => {
-        this.fetchedData = response.items;
-
-        this.setLoading();
-      });
+    return this.httpClient.get<IResponse>(href, { params: { id: ids } });
   }
 
-  changeFilter(type: string, keyword = '') {
-    switch (type) {
-      case 'date': {
-        this.filterSettings.dateByAsc = !this.filterSettings.dateByAsc;
-        break;
-      }
-
-      case 'views': {
-        this.filterSettings.viewsByAsc = !this.filterSettings.viewsByAsc;
-        break;
-      }
-
-      case 'keyword': {
-        this.filterSettings.keyword = keyword;
-        break;
-      }
-
-      default: {
-        break;
-      }
-    }
+  changeFilter(filterByType: string, keyword = '') {
+    this.store.dispatch(changeFilter({ filterByType, keyword }));
   }
 
   reset() {
-    this.filterSettings = {
-      dateByAsc: false,
-      viewsByAsc: false,
-      keyword: '',
-    };
+    this.store.dispatch(resetFilter());
 
-    this.filteringBlockIsVisible = false;
+    this.store.dispatch(changeFilteringBlockVisibility({ isVisible: 'false' }));
 
     this.userQuery.get('request')?.setValue('');
   }
 
   setCurrentVideoInfo(id: string) {
-    if (this.fetchedData) {
-      this.currentVideoInformation = this.fetchedData.find((video) => {
-        const currId = video.id as unknown as string;
-        return currId === id;
-      }) as IItem;
-    }
+    this.store.dispatch(setCurrentVideoInfo({ id }));
   }
 
   resetCurrentVideoInfo() {
-    this.currentVideoInformation = null;
+    this.store.dispatch(resetCurrentVideoInfo());
   }
 }

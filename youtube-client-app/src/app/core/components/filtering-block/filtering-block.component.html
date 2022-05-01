@@ -1,4 +1,7 @@
-<section class="filtering-block" *ngIf="youtubeService.filteringBlockIsVisible">
+<section
+  class="filtering-block"
+  *ngIf="youtubeService.filteringBlockIsVisible$ | async"
+>
   <div class="container">
     <div class="content filtering-block__content">
       <span class="text filtering-block__text">Sorting by:</span>
@@ -22,10 +25,10 @@
       </button>
       <input
         #input
-        [ngModel]="youtubeService.filterSettings.keyword"
+        [ngModel]="(youtubeService.filterSettings$ | async)!.keyword"
         name="keyword"
         type="text"
-        [value]="youtubeService.filterSettings.keyword"
+        [value]="(youtubeService.filterSettings$ | async)!.keyword"
         (keydown.enter)="youtubeService.changeFilter('keyword', input.value)"
         class="input text filtering-block__input"
       />
